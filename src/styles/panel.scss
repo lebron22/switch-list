@@ -1,0 +1,15 @@
+.panel__header{
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    border: 1px solid #ddd;
+
+    .panel__heading{
+        max-width: 70%;
+    }
+}
+.panel__article{
+    background-color: #fefefe;
+    border: 1px solid #ddd;
+    padding: 10px; 
+}
