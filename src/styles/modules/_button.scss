@@ -1,0 +1,14 @@
+.panels__button {
+  margin: 10px 0px;
+  padding: 10px 20px;
+  background-color: $main-white;
+  border: 2px solid $main-gray;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: $main-blue;
+    color: $main-white;
+  }
+}

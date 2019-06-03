@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import PanelsList from './components/PanelsList';
 import axios from 'axios'
 
-import './styles/app.scss'
+import PanelsList from './components/PanelsList';
+import Button from './components/Button';
+
+import './styles/style.scss'
 
 class App extends Component {
   state = {
@@ -11,50 +13,50 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(res => {
-        const posts = res.data.slice(0, 3).map(({ id, title, body }) => {
-          return {
-            id,
-            title,
-            body,
-            isOpened: false
-          }
-        })
-        this.setState({ posts })
-      })
-      .catch(err => alert(err))
+    this.getPosts()
   }
 
-  handleCheckboxChange = panelId => {
-    const posts = this.state.posts.map(({ id, title, body, isOpened }) => {
-      if (id === panelId) {
-        isOpened = !isOpened
-      }
-      return {
-        id,
-        title,
-        body,
-        isOpened
+  getPosts = async () => {
+    try {
+      const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
+      const posts = res.data.slice(0, 8).map(({ id, title, body }) => {
+        return {
+          id,
+          title,
+          body,
+          isOpened: false
+        }
+      })
+      this.setState({ posts })
+    }
+    catch (err) {
+      alert(err)
+    }
+  }
+
+  handleSwitchChange = panelId => {
+    const posts = this.state.posts.map(post => {
+      if (post.id === panelId) {
+        return {
+          ...post,
+          isOpened: !post.isOpened
+        }
+      } else {
+        return post
       }
     })
     //CHECK IF ALL INPUTS ARE OPENED TO CHANGE SHOWALL BUTTON CONTENT
     const uncheckedInputs = posts.find(post => post.isOpened === false)
-    const showAll = uncheckedInputs !== undefined ? false : true
-    //
-    this.setState({ posts, showAll })
+    this.setState({ posts, showAll: !uncheckedInputs })
   }
 
-  handleAllPanels = () => {
-    const posts = this.state.posts.map(({ id, title, body, isOpened }) => {
-      isOpened = !this.state.showAll
-      return {
-        id,
-        title,
-        body,
-        isOpened
+  handleAllPanelsButton = () => {
+    const posts = this.state.posts.map(post => (
+      {
+        ...post,
+        isOpened: !this.state.showAll
       }
-    })
+    ))
     this.setState(prevState => ({
       posts,
       showAll: !prevState.showAll
@@ -64,15 +66,8 @@ class App extends Component {
   render() {
     return (
       <>
-        <button className='panels__button' onClick={this.handleAllPanels}>
-          {this.state.showAll ? ('Hide all') : ('Show all')}
-        </button>
-        {this.state.posts.length ? (
-          <PanelsList posts={this.state.posts} handleCheckboxChange={this.handleCheckboxChange} />
-        ) : (
-            <div>Loading...</div>
-          )}
-
+        <Button text={this.state.showAll ? ('Hide all') : ('Show all')} handleAllPanelsButton={this.handleAllPanelsButton} />
+        {this.state.posts.length ? (<PanelsList posts={this.state.posts} handleSwitchChange={this.handleSwitchChange} />) : (<div>Loading...</div>)}
       </>
     );
   }

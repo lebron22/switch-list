@@ -1,21 +1,16 @@
 import React from 'react';
 import Switch from '../components/Switch';
-import '../styles/panel.scss';
+import PanelBody from './PanelBody';
 
-const Panel = ({ post, handleCheckboxChange }) => {
+const Panel = ({ post, handleSwitchChange }) => {
     const { title, body, id, isOpened } = post
     return (
         <section>
             <header className='panel__header'>
-                <Switch checked={isOpened} handleCheckboxChange={() => handleCheckboxChange(id)} />
+                <Switch checked={isOpened} handleSwitchChange={() => handleSwitchChange(id)} />
                 <h3 className='panel__heading'>{title}</h3>
             </header >
-
-            {isOpened ? (
-                <article className='panel__article'>
-                    <p>{body}</p>
-                </article>
-            ) : null}
+            <PanelBody body={body} isOpened={isOpened} />
         </section>
     );
 }
