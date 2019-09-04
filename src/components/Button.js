@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const Button = ({ text, handleAllPanelsButton }) => {
-    return (
-        <button className='panels__button' onClick={handleAllPanelsButton}>
-            {text}
-        </button>
-    );
-}
+  return (
+    <button className="button-primary" onClick={handleAllPanelsButton}>
+      {text}
+    </button>
+  );
+};
 
 export default Button;

@@ -4,6 +4,7 @@
     align-items: center;
     background-color: $light-gray;
     border: 1px solid $main-gray;
+    animation: appear 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) both;
   }
 
   &__heading {

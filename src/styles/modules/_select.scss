@@ -1,4 +1,4 @@
-.button-primary {
+.select {
   margin: 10px 0px;
   padding: 10px 20px;
   background-color: $main-white;
@@ -7,10 +7,4 @@
   cursor: pointer;
   outline: none;
   transition: all 0.4s ease;
-
-  &:hover,
-  &.active {
-    background-color: $main-blue;
-    color: $main-white;
-  }
 }
